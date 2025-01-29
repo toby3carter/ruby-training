@@ -82,14 +82,14 @@ RSpec.describe 'Message passing' do
   it 'raises an error if you send undefined messages' do
     typical = TypicalObject.new
 
-    expect { typical.send(:foobar) }.to raise_error(__, /__/)
+    expect { typical.send(:foobar) }.to raise_error(NoMethodError, /undefined method `foobar'/)
   end
 
   it 'raises the NoMethodError by calling method_missing' do
     typical = TypicalObject.new
 
-    expect(typical.respond_to?(:method_missing, true)).to eq(__)
-    expect { typical.send(:method_missing) }.to raise_error(__, /__/)
+    expect(typical.respond_to?(:method_missing, true)).to eq(true)
+    expect { typical.send(:method_missing) }.to raise_error(ArgumentError, /no method name given/)
 
     # THINK ABOUT IT:
     #
@@ -112,9 +112,9 @@ RSpec.describe 'Message passing' do
   it 'can catches any message that is sent now, even if it is not defined' do
     catcher = AllMessageCatcher.new
 
-    expect(catcher.foobar).to eq(__)
-    expect(catcher.foobaz(1)).to eq(__)
-    expect(catcher.sum(1, 2, 3, 4, 5, 6)).to eq(__)
+    expect(catcher.foobar).to eq("Someone called foobar with <>")
+    expect(catcher.foobaz(1)).to eq("Someone called foobaz with <1>")
+    expect(catcher.sum(1, 2, 3, 4, 5, 6)).to eq('Someone called sum with <1, 2, 3, 4, 5, 6>')
   end
 
   it 'now lies when you ask if it does #respond_to?' do
