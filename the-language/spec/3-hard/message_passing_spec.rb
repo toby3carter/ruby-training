@@ -121,7 +121,7 @@ RSpec.describe 'Message passing' do
     catcher = AllMessageCatcher.new
 
     expect { catcher.any_method }.not_to raise_error
-    expect(catcher.respond_to?(:any_method)).to eq(__)
+    expect(catcher.respond_to?(:any_method)).to eq(false)
   end
 
   class WellBehavedFooCatcher
@@ -137,14 +137,14 @@ RSpec.describe 'Message passing' do
   it 'catches any method that starts with foo_' do
     catcher = WellBehavedFooCatcher.new
 
-    expect(catcher.foo_bar).to eq(__)
-    expect(catcher.foo_baz).to eq(__)
+    expect(catcher.foo_bar).to eq('Foo to you too')
+    expect(catcher.foo_baz).to eq('Foo to you too')
   end
 
   it 'behaves normally for non-foo methods' do
     catcher = WellBehavedFooCatcher.new
 
-    expect { catcher.normal_undefined_method }.to raise_error(__)
+    expect { catcher.normal_undefined_method }.to raise_error(NoMethodError)
   end
 
   # NOTE: just reopening class from above
@@ -161,7 +161,7 @@ RSpec.describe 'Message passing' do
   it 'now tells the truth using an explicitly defined #respond_to? method' do
     catcher = WellBehavedFooCatcher.new
 
-    expect(catcher.respond_to?(:foo_bar)).to eq(__)
-    expect(catcher.respond_to?(:something_else)).to eq(__)
+    expect(catcher.respond_to?(:foo_bar)).to eq(true)
+    expect(catcher.respond_to?(:something_else)).to eq(false)
   end
 end
