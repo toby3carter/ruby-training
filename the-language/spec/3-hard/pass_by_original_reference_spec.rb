@@ -10,7 +10,7 @@ RSpec.describe 'Pass by reference vs Pass by value' do
   it 'is possible to pass something which can be seen as pass by reference' do
     x = 'string'
     y = x
-    x.upcase!
+    x.upcase! # This is known as a bang method, because x gets updated using ! y's value then changes as it is pointing to x
 
     expect(y).to eq("STRING")
   end
