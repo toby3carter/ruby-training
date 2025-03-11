@@ -72,59 +72,59 @@ RSpec.describe 'Regular expressions' do
   end
 
   it 'uses \A to mark the start of the string' do
-    expect('start end'[/\Astart/]).to eq(__)
-    expect('start end'[/\Aend/]).to eq(__)
+    expect('start end'[/\Astart/]).to eq('start')
+    expect('start end'[/\Aend/]).to eq(nil)
   end
 
   it 'uses \z to mark the end of the string' do
-    expect('start end'[/end\z/]).to eq(__)
-    expect('start end'[/start\z/]).to eq(__)
+    expect('start end'[/end\z/]).to eq('end')
+    expect('start end'[/start\z/]).to eq(nil)
   end
 
   it 'uses ^ to mark the start of lines' do
-    expect("magic number 8\n3 magic number"[/^\d+/]).to eq(__)
+    expect("magic number 8\n3 magic number"[/^\d+/]).to eq("3")
   end
 
   it 'uses $ to mark the end of lines' do
-    expect("8 magic number\nmagic number 3"[/\d+$/]).to eq(__)
+    expect("8 magic number\nmagic number 3"[/\d+$/]).to eq("3")
   end
 
   it 'uses \b to anchor word boundaries' do
-    expect('wildcat cats'[/\bcat.+/]).to eq(__)
+    expect('wildcat cats'[/\bcat.+/]).to eq("cats")
   end
 
   it 'uses parentheses to group content' do
-    expect('yohoho'[/(ho)+/]).to eq(__)
+    expect('yohoho'[/(ho)+/]).to eq("hoho")
   end
 
   it 'also uses parentheses to capture content' do
-    expect('Gary, James'[/(\w+), (\w+)/, 1]).to eq(__)
-    expect('Gary, James'[/(\w+), (\w+)/, 2]).to eq(__)
+    expect('Gary, James'[/(\w+), (\w+)/, 1]).to eq("Gary")
+    expect('Gary, James'[/(\w+), (\w+)/, 2]).to eq("James")
   end
 
   it 'has special variables to access captures' do
-    expect('Name: Gary, James'[/(\w+), (\w+)/]).to eq(__)
-    expect($1).to eq(__)
-    expect($2).to eq(__)
+    expect('Name: Gary, James'[/(\w+), (\w+)/]).to eq("Gary, James")
+    expect($1).to eq("Gary")
+    expect($2).to eq("James")
   end
 
   it 'uses a | to offer alternatives for a group' do
     simpsons = /(Bart|Lisa|Maggie) Simpson/
 
-    expect('Bart Simpson'[simpsons]).to eq(__)
-    expect('Maggie Simpson'[simpsons]).to eq(__)
-    expect('Homer Simpson'[simpsons]).to eq(__)
+    expect('Bart Simpson'[simpsons]).to eq("Bart Simpson")
+    expect('Maggie Simpson'[simpsons]).to eq("Maggie Simpson")
+    expect('Homer Simpson'[simpsons]).to eq(nil)
   end
 
   it 'uses scan to find all instances that match a specific regex' do
-    expect('one two-three'.scan(/\w+/)).to eq(__)
+    expect('one two-three'.scan(/\w+/)).to eq(["one", "two", "three"])
   end
 
   it 'can use #sub to find and replace (a single instance), using regex' do
-    expect('one two-three'.sub(/(t\w*)/) { $1[0, 1] }).to eq(__)
+    expect('one two-three'.sub(/(t\w*)/) { $1[0, 1] }).to eq("one t-three")
   end
 
   it 'can use #gsub to find and replace (all instances), using regex' do
-    expect('one two-three'.gsub(/(t\w*)/) { $1[0, 1] }).to eq(__)
+    expect('one two-three'.gsub(/(t\w*)/) { $1[0, 1] }).to eq("one t-t")
   end
 end
