@@ -140,7 +140,7 @@ RSpec.describe 'Classes' do
     fido = BabyDog.new('Fido')
 
     fidos_self = fido.get_self
-    expect(fidos_self).to eq(<Dog named 'Fido'>)
+    expect(fidos_self).to eq("<Dog named 'Fido'>")
   end
 
   it 'provides a string version of the object with to_s' do
