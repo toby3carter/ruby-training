@@ -140,7 +140,7 @@ RSpec.describe 'Classes' do
     fido = BabyDog.new('Fido')
 
     fidos_self = fido.get_self
-    expect(fidos_self).to eq(<Dog named 'Fido'>)
+    expect(fidos_self).to eq(fido)
   end
 
   it 'provides a string version of the object with to_s' do
@@ -161,11 +161,11 @@ RSpec.describe 'Classes' do
   it 'has #to_s and #inspect on all objects' do
     array = [1, 2, 3]
 
-    expect(array.to_s).to eq('1, 2, 3')
+    expect(array.to_s).to eq('[1, 2, 3]')
     expect(array.inspect).to eq('[1, 2, 3]')
 
     expect('STRING'.to_s).to eq('STRING')
-    expect('STRING'.inspect).to eq('\'STRING\'')
+    expect('STRING'.inspect).to eq('"STRING"')
 
     expect(BabyDog.to_s).to eq('BabyDog')
     expect(BabyDog.inspect).to eq('BabyDog')
