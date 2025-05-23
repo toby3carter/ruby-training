@@ -13,11 +13,11 @@ def quadrilateral(a, b, c, d)
   end
 
   if angles.uniq == [90]
-    return[:square, :rectangle]
+    [:square, :rectangle]
   elsif two_pairs_of_equal_angles?(angles)
-    return[:parallelogram, :rhombus]
+    [:parallelogram, :rhombus]
   else
-    return[:quadrilateral]
+    [:quadrilateral]
   end
 end
 
