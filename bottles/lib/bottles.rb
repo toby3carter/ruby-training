@@ -19,12 +19,14 @@ class Bottles
     start_number.downto(end_number) do |n|
       result << verse(n)
     end
-    result.join("\n")
+    result.join("\n") + "\n"
   end
 
   def sing
     verses(99, 0)
   end
+
+
 
   private
 
